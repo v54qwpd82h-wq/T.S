@@ -1,0 +1,77 @@
+utter.onend=()=>{clearInterval(interval);rFrame(false,false);resolve();};
+    window.speechSynthesis.speak(utter);
+  });
+
+  t0=Date.now();while(Date.now()-t0<400){rFrame(false,false);await sleep(30);}
+  recorder.stop();
+  setVP(90,'Ap konvèti pou galri w...');
+
+  recorder.onstop=()=>{
+    const blob=new Blob(chunks,{type:mime});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;
+    a.download=`GLegacy-Tikomik.${mime.includes('mp4')?'mp4':'webm'}`;
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    if(audioStream)audioStream.getTracks().forEach(t=>t.stop());
+    setVP(100,'✓ Videyo telechaje!');
+    setTimeout(()=>{prog.style.display='none';},2500);
+    vb.disabled=false;
+    toast('🎬 Videyo sove nan galri w!');
+  };
+}
+
+function setVP(pct,msg){
+  document.getElementById('videoBarFill').style.width=pct+'%';
+  document.getElementById('videoStatus').textContent=msg;
+}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+// ============================================================
+// UTILS
+// ============================================================
+function savePanel(){
+  pageStrokes[currentPage]=strokeLayer.toDataURL();
+  updateThumb();toast('✓ Panel '+String(currentPage+1).padStart(2,'0')+' sove!');
+}
+function exportComic(){
+  const a=document.createElement('a');a.href=canvas.toDataURL('image/png');
+  a.download='GLegacy-Scèn.png';a.click();
+  toast('🖼 Imaj telechaje!');
+}
+function enterSite(){
+  const n=document.getElementById('gname').value.trim();
+  if(!n){toast('Mete non pwofesyonèl ou avan!');return;}
+  const gate=document.getElementById('gate');
+  gate.style.transition='opacity .5s';gate.style.opacity='0';
+  setTimeout(()=>gate.style.display='none',500);
+  document.getElementById('nuser').textContent='👤 '+n;
+  document.getElementById('nuser').style.display='block';
+}
+function openPay(plan,price){
+  document.getElementById('mTitle').textContent=plan;
+  document.getElementById('mPrice').textContent=price;
+  document.getElementById('payModal').classList.add('open');
+}
+function selPay(btn,method){
+  document.querySelectorAll('.pay-opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('payGo').style.display='block';
+}
+function confirmPay(){
+  document.getElementById('payModal').classList.remove('open');
+  toast('📱 Ou pral transfere pou peman an.');
+}
+function closeM(){document.getElementById('payModal').classList.remove('open');}
+function toast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;
+  t.style.transform='translateX(-50%) translateY(0)';
+  clearTimeout(t._t);t._t=setTimeout(()=>t.style.transform='translateX(-50%) translateY(100px)',2800);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+buildPalette();buildLP();fullRedrawWithStrokes();
+</script>
+</body>
+</html>
