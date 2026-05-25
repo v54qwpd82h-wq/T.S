@@ -1,0 +1,50 @@
+const text=document.getElementById('dialogText').value.trim();
+  const vb=document.getElementById('videoBtn'),prog=document.getElementById('videoProgress');
+  if(!text){toast('⚠ Ekri yon dyalòg pou videyo a gen vwa.');return;}
+
+  vb.disabled=true;prog.style.display='block';setVP(10,'Ap mande pèmisyon mikwo...');
+
+  let audioStream;
+  try{audioStream=await navigator.mediaDevices.getUserMedia({audio:true});}
+  catch(e){toast('Videyo a ap fèt san son mikwo.');}
+
+  const vc=document.createElement('canvas');vc.width=640;vc.height=400;
+  const vcc=vc.getContext('2d');
+  const vidStream=vc.captureStream(30);
+  let tracks=[...vidStream.getTracks()];
+  if(audioStream)tracks.push(...audioStream.getTracks());
+  const combined=new MediaStream(tracks);
+
+  let mime='video/mp4';
+  if(!MediaRecorder.isTypeSupported(mime))mime='video/webm;codecs=vp9';
+  if(!MediaRecorder.isTypeSupported(mime))mime='video/webm';
+
+  const recorder=new MediaRecorder(combined,{mimeType:mime});
+  const chunks=[];
+  recorder.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+  recorder.start();
+  setVP(30,'Ap anrejistre sèn...');
+
+  const sp=parseInt(document.getElementById('speakerSelect').value);
+
+  function rFrame(mo1,mo2){
+    vcc.clearRect(0,0,640,400);drawBG(vcc,640,400,currentBG);
+    drawChar(vcc,currentChar2,null,640*0.72,300,1.2,mo2,currentChar2.pos);
+    drawChar(vcc,currentChar,currentOutfit,640*0.3,300,1.35,mo1,currentChar.pos);
+    if(text){
+      if(sp===0||sp===1)drawBubble(vcc,640*0.3,60,text,'gold');
+      if(sp===2)drawBubble(vcc,640*0.72,80,text,'blue');
+    }
+    vcc.drawImage(strokeLayer,0,0);
+  }
+
+  let t0=Date.now();while(Date.now()-t0<400){rFrame(false,false);await sleep(30);}
+
+  setVP(60,'Ap kaptire vwa karaktè...');
+  await new Promise(resolve=>{
+    const utter=new SpeechSynthesisUtterance(text);
+    const voice=getBestVoice(voiceGender);
+    if(voice)utter.voice=voice;
+    utter.rate=parseFloat(document.getElementById('voiceRate').value);
+    utter.pitch=voiceGender==='female'?1.35:voiceGender==='child'?1.6:0.8;
+    let tog=false;
