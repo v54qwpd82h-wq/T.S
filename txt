@@ -1,0 +1,400 @@
+  box-shadow:0 4px 16px rgba(245,200,66,0.2);
+}
+.video-btn:hover{opacity:.9;transform:translateY(-1px);}
+.video-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.video-progress{display:none;margin-top:.7rem;}
+.video-bar{height:5px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-bottom:.3rem;}
+.video-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0%;transition:width .2s;}
+.video-status{font-size:.6rem;color:var(--muted);text-align:center;font-family:'Space Mono';}
+
+/* ========= ACTIONS SEPARATOR ========= */
+.rp-sep{height:1px;background:var(--border);margin:.1rem 0;}
+
+/* ========= PLANS ========= */
+.plans-section{
+  max-width:960px;margin:0 auto;
+  padding:4rem 1rem 5rem;
+  position:relative;z-index:1;
+}
+.plans-header{text-align:center;margin-bottom:2.5rem;}
+.plans-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.68rem;font-weight:800;letter-spacing:3px;
+  color:var(--gold);text-transform:uppercase;margin-bottom:.8rem;
+}
+.plans-title{
+  font-family:'Bebas Neue';font-size:clamp(2rem,5vw,3.5rem);
+  letter-spacing:2px;line-height:1;margin-bottom:.5rem;
+}
+.plans-sub{color:var(--muted2);font-size:.85rem;}
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;}
+.plan{
+  background:var(--card);
+  border:1.5px solid var(--border);
+  border-radius:20px;padding:1.8rem;
+  position:relative;overflow:hidden;
+  transition:transform .2s, box-shadow .2s;
+}
+.plan:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,0.4);}
+.plan.featured{border-color:rgba(58,123,253,0.5);box-shadow:var(--glow-blue);}
+.plan.featured::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--purple),var(--cyan));
+}
+.plan-badge{
+  position:absolute;top:1rem;right:1rem;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;padding:.2rem .7rem;border-radius:20px;
+  font-size:.6rem;font-weight:800;letter-spacing:1px;
+}
+.plan-name{
+  font-family:'Bebas Neue';font-size:1.4rem;
+  letter-spacing:1px;margin-bottom:.3rem;color:var(--muted2);
+}
+.plan-price{
+  font-family:'Bebas Neue';font-size:3rem;line-height:1;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.plan-price small{font-family:'Syne';font-size:.8rem;color:var(--muted);-webkit-text-fill-color:var(--muted);}
+.plan-usd{font-size:.72rem;color:var(--muted);margin-bottom:1.2rem;font-family:'Space Mono';}
+.plan-feats{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem;}
+.plan-feats li{
+  font-size:.78rem;display:flex;align-items:flex-start;gap:.6rem;
+  color:var(--muted2);
+}
+.plan-feats li.yes{color:var(--text);}
+.plan-feats li::before{
+  content:'✦';font-size:.65rem;color:var(--gold);
+  flex-shrink:0;margin-top:.1rem;
+}
+.plan-feats li.no{color:var(--muted);}
+.plan-feats li.no::before{content:'·';color:var(--muted);}
+.plan-cta{
+  width:100%;padding:.8rem;border-radius:12px;
+  font-family:'Syne';font-weight:800;font-size:.85rem;
+  cursor:pointer;border:none;letter-spacing:.3px;
+  transition:opacity .2s, transform .15s;
+}
+.plan-cta:hover{opacity:.85;transform:translateY(-1px);}
+.plan-cta.fill{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;box-shadow:0 6px 20px rgba(58,123,253,0.3);}
+.plan-cta.outline{background:transparent;color:var(--text);border:1.5px solid var(--border);}
+
+/* ========= PAYMENT MODAL ========= */
+.modal{
+  display:none;position:fixed;inset:0;z-index:9000;
+  background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;padding:1rem;
+}
+.modal.open{display:flex;}
+.mbox{
+  background:var(--card);
+  border:1.5px solid var(--border);
+  border-radius:20px;padding:2rem;
+  max-width:420px;width:100%;
+  position:relative;
+  animation:mboxIn .25s ease;
+  box-shadow:0 40px 80px rgba(0,0,0,0.6);
+}
+@keyframes mboxIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.mclose{
+  position:absolute;top:.8rem;right:.8rem;
+  background:var(--surface);border:1px solid var(--border);
+  color:var(--muted2);width:32px;height:32px;border-radius:8px;
+  cursor:pointer;font-size:.85rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  transition:color .2s, border-color .2s;font-family:'Space Mono';
+}
+.mclose:hover{color:var(--text);border-color:var(--muted2);}
+.mtitle{font-family:'Bebas Neue';font-size:2rem;letter-spacing:1px;margin-bottom:.25rem;}
+.mprice{color:var(--gold);font-weight:700;font-size:.85rem;margin-bottom:1.3rem;font-family:'Space Mono';}
+.pay-opt{
+  display:flex;align-items:center;gap:.9rem;
+  background:var(--surface);border:1.5px solid var(--border);
+  padding:.85rem 1rem;border-radius:12px;cursor:pointer;
+  width:100%;color:var(--text);font-family:'Syne';font-size:.85rem;font-weight:700;
+  transition:border-color .2s;margin-bottom:.55rem;text-align:left;
+}
+.pay-opt:hover{border-color:var(--blue);}
+.pay-opt.sel{border-color:var(--gold);background:rgba(245,200,66,0.05);}
+.pay-opt-icon{font-size:1.4rem;flex-shrink:0;}
+.pay-opt-info .pay-sub{font-size:.68rem;color:var(--muted);font-weight:400;margin-top:.1rem;font-family:'Space Mono';}
+.pay-go{
+  width:100%;padding:.85rem;border-radius:12px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#07080f;border:none;
+  font-family:'Syne';font-weight:800;font-size:.9rem;
+  cursor:pointer;margin-top:.5rem;
+  display:none;transition:opacity .2s;
+  box-shadow:0 6px 20px rgba(245,200,66,0.3);
+}
+.pay-go:hover{opacity:.9;}
+
+/* ========= FOOTER ========= */
+footer{
+  text-align:center;padding:2rem 1rem;
+  border-top:1px solid var(--border);
+  position:relative;z-index:1;
+}
+.flogo{
+  font-family:'Bebas Neue';font-size:2.2rem;letter-spacing:3px;
+  background:linear-gradient(135deg,var(--gold),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:.3rem;
+}
+footer p{font-size:.72rem;color:var(--muted);line-height:1.8;}
+
+/* ========= TOAST ========= */
+#toast{
+  position:fixed;bottom:1.5rem;left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background:var(--surface2);
+  border:1px solid var(--border-gold);
+  color:var(--text);
+  padding:.65rem 1.4rem;border-radius:12px;
+  font-size:.78rem;font-weight:700;
+  z-index:99999;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;white-space:nowrap;
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+  font-family:'Space Mono';
+}
+
+/* ========= RESPONSIVE ========= */
+@media(max-width:860px){
+  .app{
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto auto;
+  }
+  .left-panel{border-right:none;border-bottom:1px solid var(--border);max-height:200px;}
+  .right-panel{border-left:none;border-top:1px solid var(--border);}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== GATE ===== -->
+<div id="gate">
+  <div class="gate-bg"></div>
+  <div class="gate-card">
+    <div class="gate-logo-wrap">
+      <span class="gate-logo">G-LEGACY</span>
+      <div class="gate-tagline">Studio Tikomik PWO</div>
+    </div>
+    <div class="gate-divider"></div>
+    <div class="gate-stars">★★★★★</div>
+    <div style="width:100%;">
+      <div class="gate-label" style="margin-bottom:.5rem;">Non Pwofesyonèl ou</div>
+      <input class="gate-input" id="gname" placeholder="Ekri non w la..." maxlength="40" onkeydown="if(event.key==='Enter')enterSite()">
+    </div>
+    <button class="gate-btn" onclick="enterSite()">▶ Antre nan Studio</button>
+    <div style="font-size:.65rem;color:var(--muted);text-align:center;font-family:'Space Mono';">
+      Studio Pwofesyonèl · G-Legacy 2026
+    </div>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="nlogo">G-LEGACY</div>
+  <div class="nav-right">
+    <div class="nav-user" id="nuser" style="display:none;"></div>
+    <button class="nav-plans-btn" onclick="document.getElementById('plans').scrollIntoView({behavior:'smooth'})">Wè Plans ✦</button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-badge">Studio Tikomik Pwofesyonèl</div>
+  <h1>KREYE <span class="g">TIKOMIK</span><br>AK <span class="b">VWA</span> PWO</h1>
+  <p>Chwazi pèsonaj ou, anime dyalòg ak vwa reyèl, epi telechaje videyo dirèkteman nan galri w.</p>
+</div>
+
+<!-- ===== APP STUDIO ===== -->
+<div class="studio-wrap">
+<div class="app">
+
+  <!-- LEFT -->
+  <div class="left-panel">
+    <div class="lp-header">
+      <div class="lp-tabs">
+        <div class="lp-tab on" onclick="lpTab(0,this)">Karaktè</div>
+        <div class="lp-tab" onclick="lpTab(1,this)">Scèn</div>
+        <div class="lp-tab" onclick="lpTab(2,this)">Rad</div>
+      </div>
+    </div>
+    <div class="lp-body" id="lpBody"></div>
+  </div>
+
+  <!-- CENTER -->
+  <div class="center">
+    <div class="canvas-toolbar">
+      <button class="tbtn active" id="toolDraw" onclick="setTool('draw')">✏ Desine</button>
+      <button class="tbtn" id="toolText" onclick="setTool('text')">T Tèks</button>
+      <button class="tbtn" id="toolBubble" onclick="setTool('bubble')">💬 Boulon</button>
+      <button class="tbtn" id="toolErase" onclick="setTool('erase')">⌫ Efase</button>
+      <div class="tbtn-sep"></div>
+      <button class="tbtn" onclick="clearCanvas()">⊘ Netwaye</button>
+      <button class="tbtn" onclick="undoCanvas()">↩ Defè</button>
+      <div class="tbtn-sep"></div>
+      <input type="color" class="brush-color" id="brushColor" value="#ffd700" title="Koulè Pinso">
+      <input type="range" class="brush-slider" id="brushSize" min="1" max="30" value="4">
+    </div>
+    <canvas id="mainCanvas" width="640" height="400"></canvas>
+    <div class="strip-bar" id="strip">
+      <div class="strip-thumb on" id="st0" onclick="switchPage(0)">
+        <canvas id="stc0" width="76" height="52"></canvas>
+        <div class="strip-page-num">01</div>
+      </div>
+      <div class="strip-add" onclick="addPage()">+<span>PANEL</span></div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right-panel">
+    <div class="rp-title">Pwopriyete</div>
+    <div class="rp-body">
+
+      <div class="rp-block">
+        <div class="rp-label">Fon Scèn</div>
+        <select class="rp-select" id="bgSelect" onchange="applyBG()">
+          <option value="city">🌆 Vil Jounen</option>
+          <option value="night">🌃 Vil Lannwit</option>
+          <option value="neon">💜 Neon Cyberpunk</option>
+          <option value="space">🌌 Espas</option>
+          <option value="forest">🌿 Forè</option>
+          <option value="castle">🏰 Chato</option>
+          <option value="beach">🏖 Plaj</option>
+          <option value="desert">🏜 Dezè</option>
+          <option value="volcano">🌋 Vòlkan</option>
+          <option value="sky">☁ Syèl</option>
+          <option value="snow">❄ Nèj</option>
+          <option value="sunset">🌅 Solèy Kouche</option>
+          <option value="white">⬜ Blan</option>
+          <option value="black">⬛ Nwa</option>
+        </select>
+      </div>
+
+      <div class="rp-block">
+        <div class="rp-label">Koulè Rapide</div>
+        <div class="color-palette" id="colorPalette"></div>
+      </div>
+
+      <div class="rp-sep"></div>
+
+      <div class="rp-block">
+        <div class="rp-label">Dyalòg Karaktè</div>
+        <input class="rp-input" id="dialogText" placeholder="Ekri tèks dyalòg..." oninput="fullRedrawWithStrokes()">
+      </div>
+
+      <div class="rp-block">
+        <div class="rp-label">Chwazi Ki Moun Ki Pale</div>
+        <select class="rp-select" id="speakerSelect" onchange="updateSpeaker()">
+          <option value="0">Tou De Karaktè</option>
+          <option value="1">Sèlman Karaktè 1</option>
+          <option value="2">Sèlman Karaktè 2</option>
+        </select>
+      </div>
+
+      <!-- VOICE -->
+      <div class="voice-card">
+        <div class="voice-card-title">
+          🎙 Vwa Karaktè
+          <div class="speak-dot" id="speakDot"></div>
+        </div>
+        <div class="rp-label" style="margin-bottom:.4rem;">Kalite Vwa</div>
+        <div class="voice-selector">
+          <button class="voice-opt" id="vFemale" onclick="setVoice('female',this)">👩 Vwa Fi</button>
+          <button class="voice-opt on" id="vMale" onclick="setVoice('male',this)">👨 Vwa Gason</button>
+          <button class="voice-opt" id="vChild" onclick="setVoice('child',this)">🧒 Timoun</button>
+        </div>
+        <div class="voice-rate">
+          <div class="voice-rate-label">Vitès</div>
+          <input type="range" id="voiceRate" min="0.5" max="1.5" step="0.1" value="0.9">
+        </div>
+        <button class="speak-btn" id="speakBtn" onclick="speakDialog()">▶ Tès Vwa a</button>
+      </div>
+
+      <div class="rp-sep"></div>
+
+      <div class="rp-block">
+        <div class="rp-label">Aksyon</div>
+        <button class="btn-secondary" onclick="savePanel()" style="margin-bottom:.45rem;">💾 Sove Panel</button>
+        <button class="btn-secondary" onclick="exportComic()">🖼 Telechaje PNG</button>
+      </div>
+
+      <!-- VIDEO -->
+      <div class="video-card">
+        <div class="video-card-title">🎬 Ekspòte Videyo</div>
+        <div class="video-desc">Videyo ap gen vwa karaktè ak animasyon bouch. L ap sove dirèkteman nan galri w.</div>
+        <button class="video-btn" id="videoBtn" onclick="exportVideo()">▶ Kreye Videyo MP4</button>
+        <div class="video-progress" id="videoProgress">
+          <div class="video-bar"><div class="video-bar-fill" id="videoBarFill"></div></div>
+          <div class="video-status" id="videoStatus">Ap prepare...</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ===== PLANS ===== -->
+<div class="plans-section" id="plans">
+  <div class="plans-header">
+    <div class="plans-eyebrow">✦ Chwazi Plan Ou</div>
+    <div class="plans-title">SOLISYON <span style="background:linear-gradient(90deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">PWO</span></div>
+    <div class="plans-sub">Pou kreye kontni pwofesyonèl ak G-Legacy Studio.</div>
+  </div>
+  <div class="plans-grid">
+    <div class="plan">
+      <div class="plan-name">Gratis</div>
+      <div class="plan-price">0 <small>HTG</small></div>
+      <div class="plan-usd">Pou toujou gratis</div>
+      <ul class="plan-feats">
+        <li class="yes">Studio Tikomik debaz</li>
+        <li class="yes">3 Pwojè / mwa</li>
+        <li class="yes">Karaktè de baz</li>
+        <li class="no">Telechajman HD MP4</li>
+        <li class="no">Sans filigran</li>
+      </ul>
+      <button class="plan-cta outline" onclick="toast('✓ Plan Gratis aktive!')">Kòmanse Gratis</button>
+    </div>
+    <div class="plan featured">
+      <div class="plan-badge">POPILÈ</div>
+      <div class="plan-name">Kreayatè</div>
+      <div class="plan-price">2500 <small>HTG</small></div>
+      <div class="plan-usd">≈ 25 USD / mwa</div>
+      <ul class="plan-feats">
+        <li class="yes">20 Pwojè Videyo / mwa</li>
+        <li class="yes">Tout Vwa ak Karaktè</li>
+        <li class="yes">Telechajman MP4 HD</li>
+        <li class="yes">Ak Filigran G-Legacy</li>
+        <li class="no">Priyorite Sipò</li>
+      </ul>
+      <button class="plan-cta fill" onclick="openPay('Kreayatè','2500 HTG / 25 USD')">Chwazi Kreayatè</button>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Ilimite Pwo</div>
+      <div class="plan-price">5000 <small>HTG</small></div>
+      <div class="plan-usd">≈ 50 USD / mwa</div>
+      <ul class="plan-feats">
+        <li class="yes">Pwojè Ilimite</li>
+        <li class="yes">Tout Vwa ak Karaktè Pwo</li>
+        <li class="yes">MP4 4K Dirèk Galri</li>
+        <li class="yes">San Filigran</li>
+        <li class="yes">Sipò Priyorite 24/7</li>
+      </ul>
+      <button class="plan-cta fill" onclick="openPay('Ilimite Pwo','5000 HTG / 50 USD')">Chwazi Ilimite</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAYMENT MODAL ===== -->
+<div class="modal" id="payModal">
+  <div class="mbox">
+    <button class="mclose" onclick="closeM()">✕</button>
+    <div class="mtitle" id="mTitle"></div>
+    <div class="mprice" id="mPrice"></div>    <button class="pay-opt" onclick="selPay(t
+(Content truncated due to size limit. Use line ranges to read remaining content)
